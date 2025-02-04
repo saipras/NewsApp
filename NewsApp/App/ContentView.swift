@@ -7,18 +7,24 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
-    }
-}
 
-#Preview {
-    ContentView()
+struct ContentView: View {
+    @StateObject var viewModel = NewsViewModel()
+    
+    var body: some View {
+        NavigationView {
+            List(viewModel.articles) { article in
+                NavigationLink(destination: NewsDetailView(article: article)) {
+                    NewsCard(article: article)
+                }
+            }
+            .listStyle(.inset)
+            .navigationTitle("Latest News")
+            .task {
+                if viewModel.articles.isEmpty {
+                    viewModel.fetchNews()
+                }
+            }
+        }
+    }
 }
