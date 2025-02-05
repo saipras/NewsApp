@@ -9,11 +9,13 @@ import SwiftUI
 import Kingfisher
 
 
-struct NewsCard : View {
+//MARK: News Card View
+/// Display a summarized view of the news article in a horizontal stack .
+struct NewsCard: View {
     let article: NewsModel
     
     var body: some View {
-        HStack {
+        HStack(alignment: .center,spacing: 20) {
             KFImage(URL(string: article.urlToImage ?? ""))
                 .resizable()
                 .placeholder {
@@ -30,7 +32,13 @@ struct NewsCard : View {
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }
-        }
+        }.frame(maxWidth: UIScreen.main.bounds.width - 20)
+            .cornerRadius(8)
     }
 }
 
+#Preview(traits: .sizeThatFitsLayout) {
+    NewsCard(article: MockData.sampleArticle)
+        .background(Color.green)
+        
+}
