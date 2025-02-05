@@ -7,6 +7,9 @@
 
 import Foundation
 
+//MARK: News Model
+/// Represents a news article with associated meta data.
+/// id: is a unique identifier for the article, using its url or generating a uuid if unavailable.
 struct NewsModel: Identifiable, Decodable {
     var id: String { url ?? UUID().uuidString }
     var source: ArticleSource?
@@ -17,11 +20,15 @@ struct NewsModel: Identifiable, Decodable {
     var urlToImage: String?
 }
 
+//MARK: ArticleSource Model
+///Represents the source of the news article
 struct ArticleSource: Decodable {
     var id: String?
     var name: String?
 }
 
+//MARK: ArticleResponse Model 
+///Represents the APi response containing a list of articles.
 struct ArticlesResponse: Decodable {
     var status: String
     var totalResults: Int
